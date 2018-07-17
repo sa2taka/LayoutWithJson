@@ -1,0 +1,9 @@
+.draggable {
+    cursor: move;
+    position: absolute;
+    z-index: 1000;
+}
+
+.dragging {
+    z-index: 1001;
+}
