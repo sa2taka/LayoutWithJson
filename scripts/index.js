@@ -13,8 +13,7 @@ function initialSettingAboutDrag () {
 function onStart(e) {
   this.classList.add("dragging")
 
-  console.log(e)
-  if(e.type === "mousedown") {
+  if (e.type === "mousedown") {
     var event = e
   }
   else {
@@ -29,7 +28,7 @@ function onStart(e) {
 }
 
 function onMove(e) {
-  var drag = document.getElementsByClassName("dragging")[0]
+  let drag = document.getElementsByClassName("dragging")[0]
 
   if(e.type === "mousemove") {
     var event = e
@@ -39,10 +38,10 @@ function onMove(e) {
 
   e.preventDefault()
 
-
-
-  drag.style.top = event.pageY - y + "px"
-  drag.style.left = event.pageX - x + "px"
+  if (isNextInParent(drag, event, x, y)) {
+    drag.style.top = event.pageY - y + "px"
+    drag.style.left = event.pageX - x + "px"
+  }
 
   drag.addEventListener("mouseup", onLeave, false)
   drag.addEventListener("touchend", onLeave, false)
@@ -63,11 +62,17 @@ function onLeave(e) {
   drag.classList.remove("dragging")
 }
 
-function isInParent(target) {
-  let parent = target.parentNode
+function isNextInParent(target, event, x, y) {
+  let nextX = event.pageX - x
+  if (nextX  < 0) {
+    return false
+  }
 
-  console.log(target.left)
-  console.log(target.right)
+  if (nextX  >= target.parentNode.clientWidth) {
+    return false
+  }
+
+  return true
 }
 
 window.onload = () => {

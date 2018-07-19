@@ -1,9 +1,15 @@
 .draggable {
-    cursor: move;
-    position: absolute;
-    z-index: 1000;
+  cursor: move;
+  position: absolute;
+  z-index: 1000;
 }
 
 .dragging {
-    z-index: 1001;
+  z-index: 1001;
+}
+
+#drop-canvas {
+  position: relative;
+  top: 100px;
+  left: 100px;
 }
