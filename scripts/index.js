@@ -25,6 +25,10 @@ function onStart(e) {
 
   document.body.addEventListener("mousemove", onMove, false)
   document.body.addEventListener("touchmove", onMove, false)
+  this.addEventListener("mouseup", onLeave, false)
+  this.addEventListener("touchend", onLeave, false)
+  document.body.addEventListener("mouseleave", onLeave, false)
+  document.body.addEventListener("touchleave", onLeave, false)
 }
 
 function onMove(e) {
@@ -43,14 +47,14 @@ function onMove(e) {
     drag.style.left = event.pageX - x + "px"
   }
 
-  drag.addEventListener("mouseup", onLeave, false)
-  drag.addEventListener("touchend", onLeave, false)
-  document.body.addEventListener("mouseleave", onLeave, false)
-  document.body.addEventListener("touchleave", onLeave, false)
+  if (isNextInBottom100px(drag, event, x, y)) {
+    console.log(document.body.clientHeight + 500 + "px")
+    drag.parentNode.style.height = drag.parentNode.clientHeight + 500 + "px"
+  }
 }
 
 function onLeave(e) {
-  var drag = document.getElementsByClassName("dragging")[0]
+  let drag = document.getElementsByClassName("dragging")[0]
 
   document.body.removeEventListener("mousemove", onMove, false)
   document.body.removeEventListener("touchmove", onMove, false)
@@ -73,6 +77,12 @@ function isNextInParent(target, event, x, y) {
   }
 
   return true
+}
+
+function isNextInBottom100px(target, event, x, y) {
+  let nextY = event.pageY - y
+
+  return nextY >= target.parentNode.clientHeight - 200
 }
 
 window.onload = () => {
