@@ -29,7 +29,6 @@ function onStart(e) {
 }
 
 function onMove(e) {
-
   var drag = document.getElementsByClassName("dragging")[0]
 
   if(e.type === "mousemove") {
@@ -39,6 +38,8 @@ function onMove(e) {
   }
 
   e.preventDefault()
+
+
 
   drag.style.top = event.pageY - y + "px"
   drag.style.left = event.pageX - x + "px"
@@ -54,10 +55,19 @@ function onLeave(e) {
 
   document.body.removeEventListener("mousemove", onMove, false)
   document.body.removeEventListener("touchmove", onMove, false)
+  document.body.removeEventListener("mouseleave", onLeave, false)
+  document.body.removeEventListener("touchleave", onLeave, false)
   drag.removeEventListener("mouseup", onStart, false)
   drag.removeEventListener("touchend", onStart, false)
 
   drag.classList.remove("dragging")
+}
+
+function isInParent(target) {
+  let parent = target.parentNode
+
+  console.log(target.left)
+  console.log(target.right)
 }
 
 window.onload = () => {
